@@ -35,7 +35,7 @@ export function TokenLaunchpad() {
         const metadata = {
             mint: mintKeypair.publicKey,
             name: tokenName,
-            symbol: tokenSymbol.padEnd(10).slice(0, 10), // Ensure correct format
+            symbol: tokenSymbol.padEnd(10).slice(0, 10), 
             uri: tokenImage,
             additionalMetadata: [],
         };
