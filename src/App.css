@@ -17,7 +17,7 @@
 body, html {
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
   font-family: 'Poppins', sans-serif;
   background: var(--dark-bg);
   color: var(--text-primary);
@@ -36,10 +36,9 @@ body::before {
 }
 
 .app-wrapper {
-  width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .wallet-nav {
@@ -58,26 +57,26 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 20px;
-  height: calc(100vh - 80px); 
+  padding: 20px;
   position: relative;
+  min-height: calc(100vh - 80px);
 }
 
 .launchpad-card {
   max-width: 480px;
   width: 100%;
   background: var(--card-bg);
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 40px;
   border: 1px solid var(--border-color);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
   color: var(--text-primary);
   letter-spacing: 0.5px;
   position: relative;
@@ -86,7 +85,7 @@ h1 {
 h1::after {
   content: "";
   position: absolute;
-  bottom: -10px;
+  bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
   width: 60px;
@@ -96,12 +95,12 @@ h1::after {
 
 .input-group {
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .input-label {
   position: absolute;
-  left: 20px;
+  left: 18px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
@@ -123,15 +122,14 @@ h1::after {
 
 .inputText {
   width: 100%;
-  padding: 18px 20px;
+  padding: 16px;
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 10px;
   background: rgba(5, 5, 5, 0.5);
   color: var(--text-primary);
   font-size: 16px;
   outline: none;
   transition: all 0.3s ease;
-  box-sizing: border-box;
 }
 
 .inputText::placeholder {
@@ -140,26 +138,26 @@ h1::after {
 
 .inputText:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 15px rgba(50, 50, 50, 0.2);
+  box-shadow: 0 0 10px rgba(50, 50, 50, 0.2);
 }
 
 .btn-container {
-  margin-top: 2rem;
+  margin-top: 1.8rem;
   display: flex;
   justify-content: center;
 }
 
 .btn {
-  padding: 16px 40px;
-  font-size: 18px;
+  padding: 14px 35px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--text-primary);
   background: rgba(15, 15, 15, 0.8);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   transition: all 0.3s;
 }
 
@@ -176,7 +174,7 @@ h1::after {
   background: rgba(15, 15, 15, 0.9);
   border: 1px solid var(--accent-color);
   border-radius: 12px;
-  padding: 15px 30px;
+  padding: 12px 25px;
   color: var(--text-primary);
   transition: all 0.5s;
   z-index: 100;
@@ -184,7 +182,7 @@ h1::after {
 }
 
 .success-notification.show {
-  bottom: 30px;
+  bottom: 20px;
 }
 
 .wallet-adapter-button {
@@ -197,41 +195,70 @@ h1::after {
   border-color: var(--accent-color) !important;
 }
 
-@media (max-width: 768px) {
+/* Responsive Design */
+@media (max-width: 1024px) {
   .launchpad-card {
-    padding: 30px;
+    max-width: 400px;
+    padding: 35px;
   }
-  
+
   h1 {
     font-size: 2rem;
   }
-  
+
   .btn {
-    padding: 14px 30px;
-    font-size: 16px;
+    padding: 12px 30px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wallet-nav {
+    padding: 15px;
+  }
+
+  .launchpad-card {
+    max-width: 360px;
+    padding: 30px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .inputText {
+    padding: 14px;
+  }
+
+  .btn {
+    padding: 12px 25px;
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
   .wallet-nav {
-    padding: 15px;
+    padding: 12px;
   }
-  
+
   .launchpad-card {
+    max-width: 90%;
     padding: 25px;
   }
-  
+
   h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
   }
-  
+
   .inputText {
-    padding: 16px;
-  }
-  
-  .btn {
-    padding: 12px 25px;
+    padding: 12px;
     font-size: 14px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 13px;
   }
 }
