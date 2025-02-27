@@ -19,7 +19,7 @@ Solana Token Launchpad provides a simple, intuitive interface for creating and d
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/solana-token-launchpad.git
+   git clone https://github.com/udaypandey01/solana-token-launchpad.git
    cd solana-token-launchpad
    ```
 
