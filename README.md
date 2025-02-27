@@ -2,8 +2,6 @@
 
 A minimalist web application for creating custom SPL tokens on the Solana blockchain using the Token-2022 program.
 
-![Solana Token Launchpad](https://api.placeholder/800/400)
-
 ## Overview
 
 Solana Token Launchpad provides a simple, intuitive interface for creating and deploying custom tokens on the Solana blockchain. This tool abstracts away the complexity of token creation, allowing users to easily mint new tokens with custom parameters including name, symbol, metadata URL, and initial supply.
