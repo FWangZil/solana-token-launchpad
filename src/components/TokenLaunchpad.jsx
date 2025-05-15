@@ -26,9 +26,15 @@ export function TokenLaunchpad() {
     show: false,
     message: "",
   });
+  const [mintAddress, setMintAddress] = useState("");
 
   async function createToken() {
-    if (!tokenName || !tokenSymbol || !tokenImage || !initialSupply) {
+    if (
+      !tokenName ||
+      !tokenSymbol ||
+      !tokenImage ||
+      !initialSupply
+    ) {
       setNotification({ show: true, message: "Please fill in all fields" });
       setTimeout(() => setNotification({ show: false, message: "" }), 3000);
       return;
@@ -92,15 +98,12 @@ export function TokenLaunchpad() {
 
       await wallet.sendTransaction(transaction, connection);
 
-      console.log(`Token mint created at ${mintKeypair.publicKey.toBase58()}`);
       const associatedToken = getAssociatedTokenAddressSync(
         mintKeypair.publicKey,
         wallet.publicKey,
         false,
         TOKEN_2022_PROGRAM_ID
       );
-
-      console.log(associatedToken.toBase58());
 
       const transaction2 = new Transaction().add(
         createAssociatedTokenAccountInstruction(
@@ -132,6 +135,7 @@ export function TokenLaunchpad() {
         show: true,
         message: `Successfully created token ${tokenName} (${tokenSymbol})!`,
       });
+      setMintAddress(mintKeypair.publicKey.toBase58()); // Store Mint address after successful transaction
       setTimeout(() => setNotification({ show: false, message: "" }), 5000);
 
       // Reset form
@@ -150,68 +154,112 @@ export function TokenLaunchpad() {
   }
 
   return (
-    <div className="launchpad-container">
-      <div className="launchpad-card">
-        <h1>Solana Token Launchpad</h1>
+    <>
+      <div className="launchpad-container">
+        <div className="launchpad-card">
+          <h1>Solana Token Launchpad</h1>
 
-        <div className="input-group">
-          <input
-            className="inputText"
-            type="text"
-            placeholder=" "
-            value={tokenName}
-            onChange={(e) => setTokenName(e.target.value)}
-          />
-          <label className="input-label">Token Name</label>
+          <div className="input-group">
+            <input
+              className="inputText"
+              type="text"
+              placeholder=" "
+              value={tokenName}
+              onChange={(e) => setTokenName(e.target.value)}
+            />
+            <label className="input-label">Token Name</label>
+          </div>
+
+          <div className="input-group">
+            <input
+              className="inputText"
+              type="text"
+              placeholder=" "
+              value={tokenSymbol}
+              onChange={(e) => setTokenSymbol(e.target.value)}
+            />
+            <label className="input-label">Token Symbol</label>
+          </div>
+
+          <div className="input-group">
+            <input
+              className="inputText"
+              type="text"
+              placeholder=" "
+              value={tokenImage}
+              onChange={(e) => setTokenImage(e.target.value)}
+            />
+            <label className="input-label">Metadata URL</label>
+          </div>
+
+          <div className="input-group">
+            <input
+              className="inputText"
+              type="text"
+              placeholder=" "
+              value={initialSupply}
+              onChange={(e) =>
+                setInitialSupply(e.target.value.replace(/[^0-9]/g, ""))
+              }
+            />
+            <label className="input-label">Initial Supply</label>
+          </div>
+
+          <div className="btn-container">
+            <button onClick={createToken} className="btn">
+              Create a token
+            </button>
+          </div>
         </div>
 
-        <div className="input-group">
-          <input
-            className="inputText"
-            type="text"
-            placeholder=" "
-            value={tokenSymbol}
-            onChange={(e) => setTokenSymbol(e.target.value)}
-          />
-          <label className="input-label">Token Symbol</label>
+        <div
+          className={`success-notification ${notification.show ? "show" : ""}`}
+        >
+          {notification.message}
         </div>
 
-        <div className="input-group">
-          <input
-            className="inputText"
-            type="text"
-            placeholder=" "
-            value={tokenImage}
-            onChange={(e) => setTokenImage(e.target.value)}
-          />
-          <label className="input-label">Metadata URL</label>
-        </div>
-
-        <div className="input-group">
-          <input
-            className="inputText"
-            type="text"
-            placeholder=" "
-            value={initialSupply}
-            onChange={(e) =>
-              setInitialSupply(e.target.value.replace(/[^0-9]/g, ""))
-            }
-          />
-          <label className="input-label">Initial Supply</label>
-        </div>
-
-        <div className="btn-container">
-          <button onClick={createToken} className="btn">
-            Create a token
-          </button>
-        </div>
       </div>
-
-      <div
-        className={`success-notification ${notification.show ? "show" : ""}`}
-      >
-        {notification.message}
-      </div>
-    </div>
+      {mintAddress && (
+        <footer
+          style={{
+            position: "fixed",
+            left: 0,
+            bottom: 0,
+            width: "100vw",
+            background: "#f1f8fffc",
+            borderTop: "1.5px solid #e0e8f0",
+            textAlign: "center",
+            padding: "22px 6vw 16px 6vw",
+            zIndex: 300,
+            fontFamily: "'LXGW Bright Code','Poppins',Arial,sans-serif",
+            boxShadow: "0 -3px 18px #e6f6ff44"
+          }}
+        >
+          <div style={{fontSize: "16px", color: "#3380ff", fontWeight: "bold", marginBottom: 5}}>
+            Token deployed!
+          </div>
+          <div style={{fontSize: "14px", color: "#222", marginBottom: 3}}>
+            <span style={{marginRight: 12}}>Token Address：</span>
+            <span style={{fontFamily: "monospace", wordBreak: "break-all", background: "#e0edfff3", borderRadius: 4, padding: "2px 6px"}}>{mintAddress}</span>
+          </div>
+          <a
+            href={`https://solscan.io/token/${mintAddress}?cluster=devnet`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="token-explorer-link"
+            style={{
+              color: "#2983f7",
+              fontWeight: "bold",
+              textDecoration: "underline",
+              fontSize: "16px",
+              marginTop: 7,
+              display: "inline-block"
+            }}
+          >
+            Look at the tokens on the blockchain browser
+          </a>
+        </footer>
+      )}
+    </>
   );
 }

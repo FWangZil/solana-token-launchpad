@@ -19,18 +19,18 @@ Solana Token Launchpad provides a simple, intuitive interface for creating and d
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/udaypandey01/solana-token-launchpad.git
+   git clone https://github.com/FWangZil/solana-token-launchpad.git
    cd solana-token-launchpad
    ```
 
 2. Install dependencies:
    ```bash
-   npm install
+   bun install
    ```
 
 3. Start the development server:
    ```bash
-   npm run dev
+   bun run dev
    ```
 
 ## Usage
@@ -47,7 +47,7 @@ Solana Token Launchpad provides a simple, intuitive interface for creating and d
 
 ## Requirements
 
-- Node.js v16+ and npm
+- Node.js v16+ and bun
 - A Solana wallet (Phantom, Solflare, etc.)
 - SOL for transaction fees (on devnet or mainnet)
 
